@@ -1,13 +1,9 @@
 package com.opipo.bbcode.converter.services;
 
 import com.opipo.bbcode.converter.bbcode.*;
-import javafx.scene.control.Tab;
 import org.reflections.Reflections;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
