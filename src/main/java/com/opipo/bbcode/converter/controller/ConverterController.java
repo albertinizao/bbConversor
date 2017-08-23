@@ -20,9 +20,9 @@ public class ConverterController {
     @Autowired
     private BBToHTMLConversionService bbToHTMLConversionService;
 
-    @RequestMapping(value = "", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @ApiOperation(value = "Convert BBCode to HTML", notes = "Convert BBCode to HTML code")
     public ResponseEntity<String> convert(@ApiParam(value = "BBCode message", required = true) @RequestBody String bbCode) {
-        return new ResponseEntity<String>(bbToHTMLConversionService.converText(bbCode), HttpStatus.ACCEPTED);
+        return new ResponseEntity<String>(bbToHTMLConversionService.converText(bbCode), HttpStatus.OK);
     }
 }
