@@ -1,11 +1,11 @@
 package com.opipo.bbcode.converter.services;
 
+import com.opipo.bbcode.converter.bbcode.BBTag;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("BB conversion")
 public class BBToHTMLConversionServiceTest {
@@ -13,9 +13,10 @@ public class BBToHTMLConversionServiceTest {
     private BBToHTMLConversionService bbToHtmlConversionService = new BBToHTMLConversionService();
 
     @Test
+    @DisplayName("Get all bbCode classes")
     public void getAllTheBBTags() {
-        assertNotNull(bbToHtmlConversionService.getBBCodeClasses());
-        Arrays.stream(bbToHtmlConversionService.getBBCodeClasses()).forEach(f->System.out.println(f.getSimpleName()));
+        Class<? extends BBTag>[] classes = bbToHtmlConversionService.getBBCodeClasses();
+        assertNotNull(classes);
     }
 
     @Test
@@ -26,8 +27,8 @@ public class BBToHTMLConversionServiceTest {
     @Test
     public void convertComplexTest2() {
         String original = "[b][u]BOLD[/u][/b]" +
-                "[b][i]Italic[/i][/b]" ;
-        System.out.println(bbToHtmlConversionService.converText(original));
+                "[b][i]Italic[/i][/b]";
+        assertEquals("<span style=\"font-weight: bold;\"><span style=\"text-decoration: underline;\">BOLD</span></span><span style=\"font-weight: bold;\"><span style=\"font-style: italic;\">Italic</span></span>",bbToHtmlConversionService.converText(original));
     }
 
     @Test
@@ -44,8 +45,7 @@ public class BBToHTMLConversionServiceTest {
                 "\t[td][i]Italic[/i][/td]\n" +
                 "[/tr]\n" +
                 "[/table]\n";
-        System.out.println(bbToHtmlConversionService.converText(original));
-        System.out.println(original);
+        assertEquals("<table><br/><tr><br/> <td><ol style=\"list-style-type: circle\"><li>elemento</li></ol></td><br/> <td><img src=\"prueba.png\"></img></td><br/> <td><a href=\"www.google.com\">www.google.com</a></td><br/></tr><br/><tr><br/> <td><span style=\"font-weight: bold;\">Bold</span></td><br/> <td><span style=\"text-decoration: underline;\">Underline</span></td><br/> <td><span style=\"font-style: italic;\">Italic</span></td><br/></tr><br/></table><br/>\n",bbToHtmlConversionService.converText(original));
     }
 
 }
